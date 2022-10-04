@@ -16,14 +16,11 @@ void pop();
 void push();
 //--------------------------
 
-
-int main()
-{
+int main() {
 	menu();
 }
 
-void menu()
-{
+void menu() {
 	int op = 0;
 	while (op != 4) {
 		system("cls"); // somente no windows
@@ -56,10 +53,9 @@ void menu()
 	}
 }
 
-void inicializar()
-{
+void inicializar() {
 
-	// se a lista já possuir elementos
+	// se a lista jï¿½ possuir elementos
 	// libera a memoria ocupada
 	NO* aux = topo;
 	while (aux != NULL) {
@@ -74,26 +70,43 @@ void inicializar()
 }
 
 
-void push()
-{
+void push() {
 	// aloca memoria dinamicamente para o novo elemento
 	NO* novo = (NO*)malloc(sizeof(NO));
+
 	if (novo == NULL)
-	{
 		return;
-	}
 
 	cout << "Digite o elemento: ";
 	cin >> novo->valor;
 	novo->prox = NULL;
 
-
-}
-
-void pop()
-{
-
+	if(topo == NULL) {
+		topo = novo;
+		return;
+	}
 	
-
+	novo->prox = topo;
+	topo = novo;
 }
 
+void pop() {
+	if(topo == NULL) {
+		cout << "Pilha Vazia" << endl;
+		return;
+	}
+
+	cout << "O ultimo elemento era: " << topo->valor << endl;
+
+	NO* lastElement = topo;
+
+	topo = topo->prox;
+	free(lastElement);
+
+	if(topo == NULL) {
+		cout << "Pilha Vazia" << endl;
+		return;
+	}
+
+	cout << "O topo agora e: " << topo->valor << endl;
+}
